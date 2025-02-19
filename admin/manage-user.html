@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Smart Choice</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Smart Choice Admin</h2>
+        </div>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="manage-product.html">Manage Products</a></li>
+            <li><a href="manage-user.html">Manage Users</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <header>
+            <h1>Manage Users</h1>
+            <div class="admin-info">
+                <span>Logged in as: Admin</span>
+                <a href="#">Logout</a>
+            </div>
+        </header>
+
+        <!-- Manage Users Section -->
+        <section class="manage-users">
+            <h2>User Overview</h2>
+            <div class="user-actions">
+                <button class="btn">Add New User</button>
+            </div>
+
+            <!-- User Table -->
+            <div class="user-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example User Row -->
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>Admin</td>
+                            <td><button>Edit</button> <button>Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td>jane@example.com</td>
+                            <td>User</td>
+                            <td><button>Edit</button> <button>Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Michael Johnson</td>
+                            <td>michael@example.com</td>
+                            <td>Admin</td>
+                            <td><button>Edit</button> <button>Delete</button></td>
+                        </tr>
+                        <!-- More user rows can go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
