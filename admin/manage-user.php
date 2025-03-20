@@ -14,10 +14,10 @@
             <h2>Smart Choice Admin</h2>
         </div>
         <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="manage-product.html">Manage Products</a></li>
-            <li><a href="manage-user.html">Manage Users</a></li>
-            <li><a href="settings.html">Settings</a></li>
+            <li><a href="index.php">Dashboard</a></li>
+            <li><a href="manage-product.php">Manage Products</a></li>
+            <li><a href="manage-user.php">Manage Users</a></li>
+            <li><a href="settings.php">Settings</a></li>
         </ul>
     </div>
 
@@ -34,24 +34,22 @@
         <!-- Manage Users Section -->
         <section class="manage-users">
             <h2>User Overview</h2>
-            <div class="user-actions">
+            <!-- <div class="user-actions">
                 <button class="btn">Add New User</button>
-            </div>
+            </div> -->
 
             <!-- User Table -->
             <div class="user-table">
                 <table>
                     <thead>
                         <tr>
-                            <th>User ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Example User Row -->
+                    <!-- <tbody>
                         <tr>
                             <td>1</td>
                             <td>John Doe</td>
@@ -73,8 +71,43 @@
                             <td>Admin</td>
                             <td><button>Edit</button> <button>Delete</button></td>
                         </tr>
-                        <!-- More user rows can go here -->
-                    </tbody>
+                    </tbody> -->
+
+                    <?php
+
+
+require './database.php';
+// Example: Fetching all data from a table named "products"
+$sql = "SELECT * FROM users"; // Replace "products" with your table name
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while ($row = $result->fetch_assoc()) {
+        // Access data using column names
+        $name = $row["Name"]; 
+        $userID = $row['UserID'];
+        $email = $row["Email"]; 
+        $userRole = $row["UserRole"]; 
+
+        echo "<tr>
+        <td>$name</td>
+        <td>$email</td>
+        <td>$userRole</td>
+        <td>
+            <button onclick=\"window.location.href='editUser.php?id=$userID'\">Edit</button>
+            <button onclick=confirmDelete($userID);>Delete</button>
+        </td>
+    </tr>";
+    }
+} else {
+    echo "0 results";
+}
+
+// Close the connection
+$conn->close();
+
+?>
                 </table>
             </div>
         </section>
@@ -82,3 +115,12 @@
 
 </body>
 </html>
+
+<script>
+function confirmDelete(userID){
+    if(confirm("Are you sure you want to delete the user?")){
+        window.location.href="delete_user.php?id="+userID;
+    }
+}
+
+</script>

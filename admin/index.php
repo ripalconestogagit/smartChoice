@@ -1,3 +1,33 @@
+<?php
+
+require './database.php';
+
+
+$sql = "select count(*) as total from Products";
+$result = $conn->query($sql);
+
+$user_sql = "select count(*) as total from Users";
+$user_result = $conn->query($user_sql);
+
+
+if($result) {
+    $row = $result->fetch_assoc();
+    $totalProducts = $row['total'];
+}else{
+    $totalProducts = 0;
+}
+
+
+if($user_result){
+    $user_row = $user_result->fetch_assoc();
+    $total_users = $user_row['total'];
+}else{
+    $total_users = 0;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +44,10 @@
             <h2>Smart Choice Admin</h2>
         </div>
         <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="manage-product.html">Manage Products</a></li>
-            <li><a href="manage-user.html">Manage Users</a></li>
-            <li><a href="settings.html">Settings</a></li>
+            <li><a href="index.php">Dashboard</a></li>
+            <li><a href="manage-product.php">Manage Products</a></li>
+            <li><a href="manage-user.php">Manage Users</a></li>
+            <li><a href="settings.php">Settings</a></li>
         </ul>
     </div>
 
@@ -27,7 +57,7 @@
             <h1>Welcome to the Admin Panel</h1>
             <div class="admin-info">
                 <span>Logged in as: Admin</span>
-                <a href="#">Logout</a>
+                <a href="../logout.php">Logout</a>
             </div>
         </header>
 
@@ -40,7 +70,9 @@
                 </div>
                 <div class="card">
                     <h3>Total Products</h3>
-                    <p>125</p>
+                    <p><?php echo $totalProducts; ?></p>
+
+  
                 </div>
                 <div class="card">
                     <h3>Orders Today</h3>
@@ -48,7 +80,7 @@
                 </div>
                 <div class="card">
                     <h3>Total Users</h3>
-                    <p>1500</p>
+                    <p><?php echo $total_users; ?></p>
                 </div>
             </div>
         </section>
@@ -56,3 +88,5 @@
 
 </body>
 </html>
+
+

@@ -271,6 +271,11 @@
 }
 
 
+.radio-group {
+  display: flex;
+  gap: 10px; /* Adjust spacing */
+}
+
 
 /* General Styling for Settings Page */
 .main-content header {
@@ -333,6 +338,14 @@
     border-radius: 5px;
 }
 
+input{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 .settings button {
     padding: 12px 20px;
     background-color: black;
@@ -360,4 +373,21 @@
 
 .btn:hover {
     background-color: #444;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 50px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+}
+
+label {
+  display: inline-block !important;
+  margin-right: 10px;
+  white-space: nowrap;
 }

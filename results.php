@@ -10,14 +10,14 @@
     <script src="results.js"></script>
 
     <header>
-        <h1>Smart Choice</h1>
-        <nav>
+    <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
+    <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+            <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="login.php">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -71,16 +71,18 @@
     </div>
 
     <footer>
+    <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
+
         <div>
             <p>Established in 1983, Smart Choice has been known as a reliable supplier of polished diamonds and lab-grown materials.</p>
         </div>
         <div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+            <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="login.php">Login</a></li>
             </ul>
         </div>
         <div>
