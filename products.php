@@ -8,44 +8,62 @@ require './admin/database.php';
 
 $query = "SELECT * FROM products WHERE 1=1";
 
-if (!empty($_GET['brand'])) {
-    $brands = explode(",", $_GET['brand']);
+if (!empty($_GET['brand']) && is_array($_GET['brand'])) {
+    $brands = $_GET['brand']; 
     $brandFilter = "('" . implode("','", $brands) . "')";
     $query .= " AND Brand IN $brandFilter";
 }
 
-if (!empty($_GET['storage'])) {
-    $storages = explode(",", $_GET['storage']);
-    $storageFilter = "('" . implode("','", $storages) . "')";
-    $query .= " AND storage IN $storageFilter";
-}
 
-// if (!empty($_GET['color'])) {
-//     $colors = explode(",", $_GET['color']);
-//     // $colorFilter = "('" . implode("','", $colors) . "')";
-//     $colorFilter = implode(',', array_fill(0, count($_GET['color']), '?'));
-
-//     $query .= " AND Color IN $colorFilter";
+// if (!empty($_GET['storage']) && is_array($_GET['storage'])) {
+//     $storage = $_GET['storage']; 
+//     $storageFilter = "('" . implode("','", $storage) . "')";
+//     $query .= " AND Storage Like '128'";
 // }
 
-if (!empty($_GET['color']) && is_array($_GET['color'])) {
-    $colors = $_GET['color']; // Use the array directly
-
-    $colorPlaceholders = implode(',', array_fill(0, count($colors), '?')); // Create placeholders for SQL
-
-    $query .= " AND Color IN ($colorPlaceholders)";
+if (!empty($_GET['storage'])) {
+    if (is_array($_GET['storage'])) {
+        $storage = $_GET['storage']; // Already an array
+    } else {
+        $storage = [$_GET['storage']]; // Convert string to array
+    }
+    
+    $storageFilter = "('" . implode("','", $storage) . "')";
+    $query .= " AND Storage IN $storageFilter";
 }
+
+
+
+
+if (!empty($_GET['color']) && is_array($_GET['color'])) {
+    $color = $_GET['color']; 
+    $colorFilter = "('" . implode("','", $color) . "')";
+    $query .= " AND Color IN $colorFilter";
+}
+
 
 if (!empty($_GET['os'])) {
-    $osList = explode(",", $_GET['os']);
-    $osFilter = "('" . implode("','", $osList) . "')";
+    if (is_array($_GET['os'])) {
+        $os = $_GET['os']; // Already an array
+    } else {
+        $os = [$_GET['os']]; // Convert string to array
+    }
+    
+    $osFilter = "('" . implode("','", $os) . "')";
     $query .= " AND OperatingSystem IN $osFilter";
 }
+
 
 if (!empty($_GET['price'])) {
     $osList = explode(",", $_GET['price']);
     $osFilter = "('" . implode("','", $osList) . "')";
     $query .= " AND OperatingSystem IN $osFilter";
+}
+
+if (!empty($_GET['priceFrom']) && !empty($_GET['priceTo'])) {
+    $priceFrom = (float) $_GET['priceFrom']; // Ensure numeric type
+    $priceTo = (float) $_GET['priceTo']; // Ensure numeric type
+    $query .= " AND Price BETWEEN $priceFrom AND $priceTo";
 }
 
 $result = $conn->query($query);
