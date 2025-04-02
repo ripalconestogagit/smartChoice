@@ -2,6 +2,13 @@
 require './database.php'; // Include database connection
 session_start();
 
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+
 if (isset($_GET['id'])) {
     $productID = $_GET['id'];
 

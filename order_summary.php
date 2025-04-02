@@ -6,6 +6,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+
 ?>
 
 
@@ -44,18 +46,20 @@ if (!isset($_SESSION['user_id'])) {
     <div class="section">
         <h3>Order Summary</h3>
         <div class="order-summary">
-            <div class="order-item">
-                <img src="images/results1.jpeg" alt="iPhone 15 Pro Max">
-                <p><strong>iPhone 15 Pro Max</strong></p>
-                <p>Color: Blue, Size: Medium</p>
-                <p>Price: $1599.99</p>
-            </div>
-            <div class="order-item">
-                <img src="images/results2.jpeg" alt="Galaxy Z Fold 7">
-                <p><strong>Galaxy Z Fold 7</strong></p>
-                <p>Color: Black, Size: Large</p>
-                <p>Price: $1439.99</p>
-            </div>
+
+            <?php
+            foreach ($cart as $cart_item) {
+                echo "<div class='order-item'>
+                <img src='{$cart_item['image']}' alt='{$cart_item['name']}'>
+                <p><strong>{$cart_item['name']}</strong></p>
+                <p>Size: {$cart_item['storage']}</p>
+                <p>Price: {$cart_item['price']}</p>
+            </div>";
+            }
+
+            ?>
+
+
         </div>
     </div>
 

@@ -1,23 +1,37 @@
+<?php session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  // If the session variable is not set, redirect to the login page
+  header("Location: login.php");
+  exit();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us - Smart Choice</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header>
-  <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
-  <nav>
+    <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
+    <nav>
       <ul>
-      <li><a href="index.php">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li><a href="products.php">Products</a></li>
         <li><a href="about.php">About</a></li>
         <li><a href="contact.php">Contact</a></li>
-        <li><a href="login.php">Login</a></li>
+        <li><a href="cart.php">Cart</a></li>
+        <li><a href="logout.php">Logout</a></li>
       </ul>
-    </nav>  
+    </nav>
   </header>
 
   <div class="banner">
@@ -33,7 +47,9 @@
     <div class="company-history">
       <h3>Company History</h3>
       <p>
-        Smart Choice was founded in 2010 with a vision to revolutionize online shopping by offering high-quality products with convenience and reliability. What began as a small startup has grown into a trusted brand, serving thousands of customers with cutting-edge solutions and exceptional service.
+        Smart Choice was founded in 2010 with a vision to revolutionize online shopping by offering high-quality
+        products with convenience and reliability. What began as a small startup has grown into a trusted brand,
+        serving thousands of customers with cutting-edge solutions and exceptional service.
       </p>
     </div>
 
@@ -48,7 +64,8 @@
           </div>
           <div class="flip-card-back">
             <h3>More About Vision</h3>
-            <p>Our vision is to innovate and lead the e-commerce industry by embracing the latest technological advancements to provide seamless shopping experiences.</p>
+            <p>Our vision is to innovate and lead the e-commerce industry by embracing the latest
+              technological advancements to provide seamless shopping experiences.</p>
           </div>
         </div>
       </div>
@@ -63,7 +80,8 @@
           </div>
           <div class="flip-card-back">
             <h3>More About History</h3>
-            <p>From a small startup in 2010 to a global e-commerce leader, Smart Choice continues to redefine online shopping with high-quality products and services.</p>
+            <p>From a small startup in 2010 to a global e-commerce leader, Smart Choice continues to
+              redefine online shopping with high-quality products and services.</p>
           </div>
         </div>
       </div>
@@ -92,11 +110,12 @@
   </div>
 
   <footer>
-  <img src="images/logo/logo/logo.jpg" alt="logo" width="40px" height="40px">
+    <img src="images/logo/logo/logo.jpg" alt="logo" width="40px" height="40px">
 
     <div>
       <p>
-        Established in 1983, Smart Choice has been known as a reliable supplier of polished diamonds and lab-grown materials.
+        Established in 1983, Smart Choice has been known as a reliable supplier of polished diamonds and
+        lab-grown materials.
       </p>
     </div>
     <div>
@@ -105,7 +124,7 @@
         <li><a href="products.php">Products</a></li>
         <li><a href="about.php">About</a></li>
         <li><a href="contact.php">Contact</a></li>
-        <li><a href="login.php">Login</a></li>
+        <li><a href="logout.php">Logout</a></li>
       </ul>
     </div>
     <div>
@@ -114,4 +133,5 @@
     </div>
   </footer>
 </body>
+
 </html>

@@ -1,6 +1,16 @@
 <?php
 require './database.php';
 
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productID = $_POST['productID'];
     $productName = $_POST['ProductName'];
@@ -8,14 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST['Price'];
     $stockQuantity = $_POST['StockQuantity'];
     $description = $_POST['Description'];
-    
+
     $color = $_POST['Color'];
     $storage = $_POST['Storage'];
     $operatingSystem = $_POST['OperatingSystem'];
     $commingSoon = $_POST['commingSoon'];
     $featuredProduct = $_POST['featuredProduct'];
 
-    
+
 
 
     // Handle Image Upload
@@ -32,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Update query with image
                 $sql = "UPDATE Products SET Name=?, Brand=?, Price=?, StockQuantity=?, Description=?, Color=?, Storage=?, OperatingSystem=?, Images=?, commingSoon=?, featuredProduct=? WHERE ProductID=?";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssdiissssiii", $productName, $brand, $price, $stockQuantity, $description, $color, $storage, $operatingSystem, $targetFilePath,$commingSoon, $featuredProduct, $productID);
+                $stmt->bind_param("ssdiissssiii", $productName, $brand, $price, $stockQuantity, $description, $color, $storage, $operatingSystem, $targetFilePath, $commingSoon, $featuredProduct, $productID);
             } else {
                 echo "File upload failed.";
                 exit();
@@ -43,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         echo $description;
-        
+
         // Update query without image
         $sql = "UPDATE Products SET Name=?, Brand=?, Price=?, StockQuantity=?, Description=?, Color=?, Storage=?, OperatingSystem=?,commingSoon=?, featuredProduct=? WHERE ProductID=?";
         $stmt = $conn->prepare($sql);

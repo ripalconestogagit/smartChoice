@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: login.php");
+    exit();
+}
 
 require 'database.php';
 
@@ -23,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Handle image upload
-    $targetDir = "uploads/"; 
+    $targetDir = "uploads/";
     $targetFile = $targetDir . basename($_FILES["Images"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -61,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO Products (Name, Brand, Price, StockQuantity, Images, Description, Color, Storage, OperatingSystem,commingSoon,featuredProduct) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssdisssssss", $productName, $brand, $price, $stockQuantity, $targetFile, $description, $color, $storage, $operatingSystem,$commingSoon, $featuredProduct);
+            $stmt->bind_param("ssdisssssss", $productName, $brand, $price, $stockQuantity, $targetFile, $description, $color, $storage, $operatingSystem, $commingSoon, $featuredProduct);
 
             if ($stmt->execute()) {
                 echo "New record created successfully";
@@ -82,12 +89,14 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Smart Choice</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Sidebar Navigation -->
@@ -115,62 +124,65 @@ $conn->close();
 
         <!-- Settings Form -->
         <section class="settings">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+                enctype="multipart/form-data">
 
-            <div class="form-group">
+                <div class="form-group">
                     <label for="ProductName">ProductName</label>
-                     <input type="text" name="ProductName">                </div>
+                    <input type="text" name="ProductName">
+                </div>
                 <div class="form-group">
                     <label for="brand">Brand</label>
-                     <input type="text" id="brand" name="Brand">
-                    </div>
+                    <input type="text" id="brand" name="Brand">
+                </div>
                 <div class="form-group">
                     <label for="Price">Shipping Fee</label>
-                     <input type="number" id="Price" name="Price">
-                    </div>
+                    <input type="number" id="Price" name="Price">
+                </div>
                 <div class="form-group">
                     <label for="StockQuantity">StockQuantity</label>
-                     <input type="number" id="StockQuantity" name="StockQuantity"><br>
-                    </div>
+                    <input type="number" id="StockQuantity" name="StockQuantity"><br>
+                </div>
                 <div class="form-group">
                     <label for="images">Images</label>
-                     <input type="file" id="images" name="Images">
-                    </div>
+                    <input type="file" id="images" name="Images">
+                </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea  id="description" name="Description" rows="9" cols="110"></textarea><br>
-                    </div>
+                    <textarea id="description" name="Description" rows="9" cols="110"></textarea><br>
+                </div>
                 <div class="form-group">
                     <label for="color">Color</label>
                     <input id="Color" type="text" name="Color"><br>
-                    </div>
+                </div>
                 <div class="form-group">
                     <label for="storage">Storage</label>
-                   <input type="text" id="storage" name="Storage"><br>
-                    </div>
+                    <input type="text" id="storage" name="Storage"><br>
+                </div>
                 <div class="form-group">
                     <label for="operatingSystem">OperatingSystem</label>
-                     <input id="operatingSystem" type="text" name="OperatingSystem"><br>
-                    </div>
-                    <div>
+                    <input id="operatingSystem" type="text" name="OperatingSystem"><br>
+                </div>
+                <div>
                     <label for="">Product Commingsoon</label>
-                    <label> <input type="radio" name="commingSoon" value=1>Yes</label>             
+                    <label> <input type="radio" name="commingSoon" value=1>Yes</label>
                     <label><input type="radio" name="commingSoon" value=0>No</label>
                 </div>
                 <div>
                     <label for="">Featured Product</label>
-                    <input type="radio" name="featuredProduct" value=1>Yes</input>               
+                    <input type="radio" name="featuredProduct" value=1>Yes</input>
                     <input type="radio" name="featuredProduct" value=0>No</input>
 
                 </div>
 
 
 
-<input type="submit" class="btn" value="Add Product">
-</form>
+                <input type="submit" class="btn" value="Add Product">
+            </form>
 
         </section>
     </div>
 
 </body>
+
 </html>

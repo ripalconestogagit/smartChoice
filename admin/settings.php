@@ -1,11 +1,27 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Smart Choice</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Sidebar Navigation -->
@@ -27,7 +43,7 @@
             <h1>Site Settings</h1>
             <div class="admin-info">
                 <span>Logged in as: Admin</span>
-                <a href="#">Logout</a>
+                <a href="logout.php">Logout</a>
             </div>
         </header>
 
@@ -57,4 +73,5 @@
     </div>
 
 </body>
+
 </html>

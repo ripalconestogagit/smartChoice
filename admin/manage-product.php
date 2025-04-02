@@ -1,11 +1,24 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products - Smart Choice</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Sidebar Navigation -->
@@ -27,7 +40,7 @@
             <h1>Manage Products</h1>
             <div class="admin-info">
                 <span>Logged in as: Admin</span>
-                <a href="#">Logout</a>
+                <a href="logout.php">Logout</a>
             </div>
         </header>
 
@@ -39,17 +52,17 @@
             </div>
 
             <?php
-            if(isset($_GET['msg'])){
+            if (isset($_GET['msg'])) {
                 $text = $_GET['msg'];
                 echo "<p style='color:green'>$text</p>";
             }
 
 
-            if(isset($_GET['message'])){
+            if (isset($_GET['message'])) {
                 $text = $_GET['message'];
                 echo "<p style='color:red'>$text</p>";
-            }   
-            
+            }
+
             ?>
 
 
@@ -64,24 +77,24 @@
                             <th>Brand</th>
                             <th>Actions</th>
                         </tr>
-<?php
+                        <?php
 
 
-require './database.php';
-// Example: Fetching all data from a table named "products"
-$sql = "SELECT * FROM products"; // Replace "products" with your table name
-$result = $conn->query($sql);
+                        require './database.php';
+                        // Example: Fetching all data from a table named "products"
+                        $sql = "SELECT * FROM products"; // Replace "products" with your table name
+                        $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // Output data of each row
-    while ($row = $result->fetch_assoc()) {
-        // Access data using column names
-        $productName = $row["Name"]; 
-        $product_id = $row['ProductID'];
-        $brand = $row["Brand"]; 
-        $price = $row["Price"]; 
-        $stock = $row["StockQuantity"]; 
-        echo "<tr>
+                        if ($result->num_rows > 0) {
+                            // Output data of each row
+                            while ($row = $result->fetch_assoc()) {
+                                // Access data using column names
+                                $productName = $row["Name"];
+                                $product_id = $row['ProductID'];
+                                $brand = $row["Brand"];
+                                $price = $row["Price"];
+                                $stock = $row["StockQuantity"];
+                                echo "<tr>
         <td>$productName</td>
         <td>$price</td>
         <td>$stock</td>
@@ -92,22 +105,22 @@ if ($result->num_rows > 0) {
             // <button onclick=\"window.location.href='deleteProduct.php?id=$product_id'\">Delete</button>
         </td>
     </tr>";
-    }
-} else {
-    echo "0 results";
-}
+                            }
+                        } else {
+                            echo "0 results";
+                        }
 
-// Close the connection
-$conn->close();
+                        // Close the connection
+                        $conn->close();
 
-?>
+                        ?>
 
 
 
                     </thead>
                     <tbody>
                         <!-- Example Product Row -->
-                        
+
                         <!-- More product rows can go here -->
                     </tbody>
                 </table>
@@ -116,14 +129,13 @@ $conn->close();
     </div>
 
 </body>
+
 </html>
 
 <script>
-
-function confirmDelete(productID){
-    if(confirm("Are you sure you want to delete this product?")){
-        window.location.href = 'deleteProduct.php?id='+productID;
+    function confirmDelete(productID) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            window.location.href = 'deleteProduct.php?id=' + productID;
+        }
     }
-}
 </script>
-

@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+
 require './database.php';
 
 
@@ -10,18 +18,18 @@ $user_sql = "select count(*) as total from Users";
 $user_result = $conn->query($user_sql);
 
 
-if($result) {
+if ($result) {
     $row = $result->fetch_assoc();
     $totalProducts = $row['total'];
-}else{
+} else {
     $totalProducts = 0;
 }
 
 
-if($user_result){
+if ($user_result) {
     $user_row = $user_result->fetch_assoc();
     $total_users = $user_row['total'];
-}else{
+} else {
     $total_users = 0;
 }
 
@@ -30,12 +38,14 @@ if($user_result){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Smart Choice</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Sidebar Navigation -->
@@ -72,7 +82,7 @@ if($user_result){
                     <h3>Total Products</h3>
                     <p><?php echo $totalProducts; ?></p>
 
-  
+
                 </div>
                 <div class="card">
                     <h3>Orders Today</h3>
@@ -87,6 +97,5 @@ if($user_result){
     </div>
 
 </body>
+
 </html>
-
-

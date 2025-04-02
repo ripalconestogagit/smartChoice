@@ -1,11 +1,25 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['role'])) {
+    // If the session variable is not set, redirect to the login page
+    header("Location: ../login.php");
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users - Smart Choice</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Sidebar Navigation -->
@@ -27,7 +41,7 @@
             <h1>Manage Users</h1>
             <div class="admin-info">
                 <span>Logged in as: Admin</span>
-                <a href="#">Logout</a>
+                <a href="logout.php">Logout</a>
             </div>
         </header>
 
@@ -76,21 +90,21 @@
                     <?php
 
 
-require './database.php';
-// Example: Fetching all data from a table named "products"
-$sql = "SELECT * FROM users"; // Replace "products" with your table name
-$result = $conn->query($sql);
+                    require './database.php';
+                    // Example: Fetching all data from a table named "products"
+                    $sql = "SELECT * FROM users"; // Replace "products" with your table name
+                    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // Output data of each row
-    while ($row = $result->fetch_assoc()) {
-        // Access data using column names
-        $name = $row["Name"]; 
-        $userID = $row['UserID'];
-        $email = $row["Email"]; 
-        $userRole = $row["UserRole"]; 
+                    if ($result->num_rows > 0) {
+                        // Output data of each row
+                        while ($row = $result->fetch_assoc()) {
+                            // Access data using column names
+                            $name = $row["Name"];
+                            $userID = $row['UserID'];
+                            $email = $row["Email"];
+                            $userRole = $row["UserRole"];
 
-        echo "<tr>
+                            echo "<tr>
         <td>$name</td>
         <td>$email</td>
         <td>$userRole</td>
@@ -99,28 +113,28 @@ if ($result->num_rows > 0) {
             <button onclick=confirmDelete($userID);>Delete</button>
         </td>
     </tr>";
-    }
-} else {
-    echo "0 results";
-}
+                        }
+                    } else {
+                        echo "0 results";
+                    }
 
-// Close the connection
-$conn->close();
+                    // Close the connection
+                    $conn->close();
 
-?>
+                    ?>
                 </table>
             </div>
         </section>
     </div>
 
 </body>
+
 </html>
 
 <script>
-function confirmDelete(userID){
-    if(confirm("Are you sure you want to delete the user?")){
-        window.location.href="delete_user.php?id="+userID;
+    function confirmDelete(userID) {
+        if (confirm("Are you sure you want to delete the user?")) {
+            window.location.href = "delete_user.php?id=" + userID;
+        }
     }
-}
-
 </script>

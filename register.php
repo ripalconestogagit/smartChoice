@@ -15,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password === $confirm_password) {
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
             $stmt = $conn->prepare("INSERT INTO users (Name, Email, Password, PhoneNumber, Address, UserRole) VALUES (?, ?, ?,?,?,?)");
-            $stmt->bind_param("ssssss", $full_name, $email, $hashed_password,$Phone, $address, $role);
-            
+            $stmt->bind_param("ssssss", $full_name, $email, $hashed_password, $Phone, $address, $role);
+
             if ($stmt->execute()) {
                 $_SESSION['user_id'] = $stmt->insert_id;
                 $_SESSION['email'] = $email;
                 header("Location: index.php"); // Redirect to a dashboard or home page
-                exit();
+                // exit();
             } else {
                 echo "Registration failed. Please try again.";
             }
@@ -37,24 +37,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Smart Choice</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
-    <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
-    <nav>
-            <ul>
+        <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
+        <nav>
+            <!-- <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
-            </ul>
+            </ul> -->
         </nav>
     </header>
 
@@ -80,19 +82,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <footer>
-    <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
+        <img src="images/logo/logo/logo.png" alt="logo" width="40px" height="40px">
 
         <div>
-            <p>Established in 1983, Smart Choice has been known as a reliable supplier of polished diamonds and lab-grown materials.</p>
+            <p>Established in 1983, Smart Choice has been known as a reliable supplier of polished diamonds and
+                lab-grown materials.</p>
         </div>
         <div>
-            <ul>
-            <li><a href="index.php">Home</a></li>
-        <li><a href="products.php">Products</a></li>
-        <li><a href="about.php">About</a></li>
-        <li><a href="contact.php">Contact</a></li>
-        <li><a href="login.php">Login</a></li>
-            </ul>
+            <!-- <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.php">Login</a></li>
+            </ul> -->
         </div>
         <div>
             <p>Contact: info@smartchoice.ca</p>
@@ -100,4 +103,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 </body>
+
 </html>
